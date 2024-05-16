@@ -9,4 +9,12 @@ install:
 run-dist:
 	./build/install/app/bin/app
 
-PHONY: build
+help:
+	./build/install/app/bin/app -h
+
+version:
+	./build/install/app/bin/app -V
+
+
+
+PHONY: build help version
