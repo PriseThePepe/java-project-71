@@ -15,7 +15,7 @@ help:
 version:
 	./build/install/app/bin/app -V
 
-lint:	build
+lint:
 	./gradlew checkstyleMain
 	./gradlew checkstyleTest
 

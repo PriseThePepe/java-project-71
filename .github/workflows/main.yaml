@@ -12,15 +12,19 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@v1
 
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v3
         with:
-          build-root-directory: app
+          arguments: build
           gradle-version: 8.7
+          build-root-directory: app
 
-      - name: Check gradle version
-        run: ./gradlew --version
+      - run: chmod +x app/gradlew
+      - run: make build
+      - run: make lint
 
       - name: Run linter
         run: ./gradlew checkstyleMain
