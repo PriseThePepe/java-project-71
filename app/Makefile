@@ -15,6 +15,10 @@ help:
 version:
 	./build/install/app/bin/app -V
 
+lint:	build
+	./gradlew checkstyleMain
+	./gradlew checkstyleTest
+
 
 
 PHONY: build help version
