@@ -21,11 +21,6 @@ jobs:
           arguments: build
           gradle-version: 8.7
           build-root-directory: app
-
-      - run: chmod +x app/gradlew
-      - run: make build
-      - run: make lint
-
       - name: Run linter
         run: ./gradlew checkstyleMain
 
