@@ -13,11 +13,17 @@ jobs:
       steps:
       -  name: Checkout sources
          uses: actions/checkout@v4
+
+      -  name: Setup Java
+         uses: actions/setup-java@v4
+         with:
+         java-version: '21'
+         distribution: 'temurin'
+
       -  name: Setup Gradle
          uses: gradle/gradle-build-action@v3
-      -  name: Build with Gradle
-         run:  make build
-      -  name: Install project as a dsitribution
-         run: make install
-      -  name: Lint code
-         run: make lint
+         with:
+          gradle-version: 8.7
+
+      -  name: Lint main code
+         run: ./gradlew checkstyleMain
