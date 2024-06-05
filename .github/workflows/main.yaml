@@ -19,15 +19,6 @@ jobs:
           gradle-version: '8.7'
           build-root-directory: './app'
 
-      - name: Init gradle
-        run: gradle init
-
-      - name: Init gradle wrapper
-        run: gradle wrapper
-
-      - name: Change wrapper permissions
-        run: chmod +x ./gradlew
-
       - name: Build with Gradle wrapper
         run: ./gradlew build
 
