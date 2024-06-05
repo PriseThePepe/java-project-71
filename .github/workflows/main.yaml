@@ -22,6 +22,4 @@ jobs:
       - name: Build with Gradle wrapper
         run: ./gradlew build
 
-      - name: Run linter
-        run: ./gradlew checkstyleMain
-      - run: ./gradlew test
+    
