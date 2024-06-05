@@ -20,8 +20,11 @@ jobs:
           arguments: build
           gradle-version: 8.7
           build-root-directory: app
+          
       - name: Initialise Gradle
         run: gradle init
+        with:
+          build-root-directory: app
 
       - name: Run linter
         run: ./gradlew checkstyleMain
