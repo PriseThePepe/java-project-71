@@ -40,21 +40,37 @@ public class Differ {
                 .distinct()
                 .sorted()
                 .toList();
+
+        builder.append("{").append(System.lineSeparator());
+
         for (String key : sortedList) {
             String value1 = jsonMap1.get(key);
             String value2 = jsonMap2.get(key);
 
             if (value1 == null) {
-                builder.append("+ ").append(key).append(": ").append(value2).append(System.lineSeparator());
+                builder.append("  ").append("+ ")
+                        .append(key).append(": ").append(value2).
+                        append(System.lineSeparator());
             } else if (value2 == null) {
-                builder.append("- ").append(key).append(": ").append(value1).append(System.lineSeparator());
+                builder.append("  ").append("- ").
+                        append(key).append(": ").append(value1)
+                        .append(System.lineSeparator());
             } else if (value1.equals(value2)) {
-                builder.append("  ").append(key).append(": ").append(value1).append(System.lineSeparator());
+                builder.append("  ").
+                        append(key).append(": ").append(value1)
+                        .append(System.lineSeparator());
             } else {
-                builder.append("- ").append(key).append(": ").append(value1).append(System.lineSeparator());
-                builder.append("+ ").append(key).append(": ").append(value2).append(System.lineSeparator());
+                builder.append("  ").append("- ")
+                        .append(key).append(": ").append(value1)
+                        .append(System.lineSeparator());
+                builder.append("  ").append("+ ")
+                        .append(key).append(": ").append(value2)
+                        .append(System.lineSeparator());
             }
         }
+
+        builder.append("}");
+
         return builder.toString();
     }
 }
