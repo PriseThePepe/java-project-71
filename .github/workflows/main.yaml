@@ -18,7 +18,10 @@ jobs:
           arguments: 'clean build'
           gradle-version: '8.7'
           build-root-directory: './app'
-          
+
+      - name: Init gradle
+        run: gradle init
+
       - name: Init gradle wrapper
         run: gradle wrapper
 
