@@ -1,40 +1,38 @@
 package hexlet.code;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import hexlet.code.Parser.Parser;
 
-import java.io.File;
 import java.io.IOException;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Differ {
     public static String generate(String firstFilepath, String secondFilepath) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-
         Path firstPath = Paths.get(firstFilepath).toAbsolutePath();
         Path secondPath = Paths.get(secondFilepath).toAbsolutePath();
 
-        File firstJson = new File(String.valueOf(firstPath));
-        File secondJson = new File(String.valueOf(secondPath));
+/*
+        File firstFile = new File(String.valueOf(firstPath));
+        File secondFile = new File(String.valueOf(secondPath));
+*/
 
-        Map<String, String> jsonMap1 = objectMapper.readValue(firstJson, new TypeReference<Map<String, String>>() {
-        });
-        Map<String, String> jsonMap2 = objectMapper.readValue(secondJson, new TypeReference<Map<String, String>>() {
-        });
+        String result;
+       Map<String, Object> parsedFirstFile =  Parser.parse(firstFilepath);
+       Map<String, Object> parsedSecondFile = Parser.parse(secondFilepath);
 
-        return getJsonDiff(jsonMap1, jsonMap2);
+       result = getDiff(parsedFirstFile,parsedSecondFile);
+
+      return result;
     }
+    public static String getDiff(Map<String, Object> fileMap1, Map<String, Object> fileMap2) {
 
-    private static String getJsonDiff(Map<String, String> jsonMap1, Map<String, String> jsonMap2) {
         StringBuilder builder = new StringBuilder();
+        Map<String,Map<String,Object>> diffMap = new LinkedHashMap<>();
 
-        List<String> sortedList = new ArrayList<>(jsonMap1.keySet());
-        sortedList.addAll(jsonMap2.keySet());
+        List<String> sortedList = new ArrayList<>(fileMap1.keySet());
+        sortedList.addAll(fileMap2.keySet());
 
         sortedList = sortedList.stream()
                 .distinct()
@@ -44,8 +42,8 @@ public class Differ {
         builder.append("{").append(System.lineSeparator());
 
         for (String key : sortedList) {
-            String value1 = jsonMap1.get(key);
-            String value2 = jsonMap2.get(key);
+            var value1 = fileMap1.get(key);
+            var value2 = fileMap2.get(key);
 
             if (value1 == null) {
                 builder.append("  ").append("+ ")
@@ -56,7 +54,7 @@ public class Differ {
                         append(key).append(": ").append(value1)
                         .append(System.lineSeparator());
             } else if (value1.equals(value2)) {
-                builder.append("  ").
+                builder.append("    ").
                         append(key).append(": ").append(value1)
                         .append(System.lineSeparator());
             } else {
@@ -73,4 +71,5 @@ public class Differ {
 
         return builder.toString();
     }
+
 }
