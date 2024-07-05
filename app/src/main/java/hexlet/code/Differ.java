@@ -25,4 +25,18 @@ public class Differ {
 
         return result;
     }
+    public static String generate(String firstFilepath, String secondFilepath) throws IOException {
+        Path firstPath = Paths.get(firstFilepath).toAbsolutePath();
+        Path secondPath = Paths.get(secondFilepath).toAbsolutePath();
+
+        String result;
+        Map<String, Object> parsedFirstFile =  Parser.parse(String.valueOf(firstPath));
+        Map<String, Object> parsedSecondFile = Parser.parse(String.valueOf(secondPath));
+
+        Map<String, Map<String, Object>> diffMap = DifferGenerator.getDiff(parsedFirstFile, parsedSecondFile);
+
+        result = Formatter.format(diffMap, "stylish");
+
+        return result;
+    }
 }

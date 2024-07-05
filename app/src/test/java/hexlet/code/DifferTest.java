@@ -33,8 +33,8 @@ public class DifferTest {
         pathToFirstNestedJsonFixture = "src/test/resources/fixtures/Json's/NestedTestFile1.json";
         pathToSecondNestedJsonFixture = "src/test/resources/fixtures/Json's/NestedTestFile2.json";
 
-        pathToFirstYAMLFixture = "src/test/resources/fixtures/Yaml's/TestFile1.yaml";
-        pathToSecondYAMLFixture = "src/test/resources/fixtures/Yaml's/TestFile2.yaml";
+        pathToFirstYAMLFixture = "src/test/resources/fixtures/Yaml's/TestFile1.yml";
+        pathToSecondYAMLFixture = "src/test/resources/fixtures/Yaml's/TestFile2.yml";
 
         pathToResultTextFixture = "src/test/resources/fixtures/ResultTest.txt";
         pathToResultTextForNestedFixtures = "src/test/resources/fixtures/ResultForNestedFiles.txt";
