@@ -12,29 +12,29 @@ import java.nio.file.Paths;
 import java.util.Map;
 
 public class Parser {
-   public static Map<String, Object> parse(String filepath) throws IOException {
-       Path path = Paths.get(filepath).toAbsolutePath();
+    public static Map<String, Object> parse(String filepath) throws IOException {
+        Path path = Paths.get(filepath).toAbsolutePath();
 
-       File file = new File(String.valueOf(path));
+        File file = new File(String.valueOf(path));
 
-       Map<String, Object> parsedMap = null;
+        Map<String, Object> parsedMap = null;
 
-       if (getFileExtension(filepath).equals(".json")) {
-           ObjectMapper objectMapper = new JsonMapper();
+        if (getFileExtension(filepath).equals(".json")) {
+            ObjectMapper objectMapper = new JsonMapper();
 
-           parsedMap = objectMapper.readValue(file, new TypeReference<Map<String, Object>>() {
-           });
-       } else if (getFileExtension(filepath).equals(".yaml")) {
-           ObjectMapper yamlMapper = new YAMLMapper();
+            parsedMap = objectMapper.readValue(file, new TypeReference<Map<String, Object>>() {
+            });
+        } else if (getFileExtension(filepath).equals(".yaml")) {
+            ObjectMapper yamlMapper = new YAMLMapper();
 
-           parsedMap = yamlMapper.readValue(file, new TypeReference<Map<String, Object>>() {
-           });
-       }
-       return parsedMap;
-   }
+            parsedMap = yamlMapper.readValue(file, new TypeReference<Map<String, Object>>() {
+            });
+        }
+        return parsedMap;
+    }
     private static String getFileExtension(String filepath) {
         int index = filepath.indexOf('.');
-        return index == -1? ".none": filepath.substring(index);
+        return index == -1 ? ".none" : filepath.substring(index);
     }
 }
 
