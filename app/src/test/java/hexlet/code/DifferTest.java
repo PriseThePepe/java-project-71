@@ -1,6 +1,5 @@
 package hexlet.code;
 
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -14,8 +13,8 @@ public class DifferTest {
     private static String pathToFirstJsonFixture;
     private static String pathToSecondJsonFixture;
 
-    private static  String pathToFirstNestedJsonFixture;
-    private static  String pathToSecondNestedJsonFixture;
+    private static String pathToFirstNestedJsonFixture;
+    private static String pathToSecondNestedJsonFixture;
 
 
     private static String pathToFirstYAMLFixture;
@@ -23,6 +22,8 @@ public class DifferTest {
 
     private static String pathToResultTextFixture;
     private static String pathToResultTextForNestedFixtures;
+    private static String pathToResultTextForPlainFormat;
+    private static String patToResultForJsonFormat;
 
     @BeforeAll
     public static void setupTestResultFiles() {
@@ -37,6 +38,8 @@ public class DifferTest {
 
         pathToResultTextFixture = "src/test/resources/fixtures/ResultTest.txt";
         pathToResultTextForNestedFixtures = "src/test/resources/fixtures/ResultForNestedFiles.txt";
+        pathToResultTextForPlainFormat = "src/test/resources/fixtures/ResultForPlainFormat";
+        patToResultForJsonFormat = "src/test/resources/fixtures/ResultForJsonFormat.json";
 
     }
 
@@ -51,25 +54,34 @@ public class DifferTest {
 
     @Test
     public void testDefaultFunctionalityJson() throws Exception {
-        String actual = Differ.generate(pathToFirstJsonFixture, pathToSecondJsonFixture);
+        String actual = Differ.generate(pathToFirstJsonFixture, pathToSecondJsonFixture, "default");
         String expected = readFileAsString(pathToResultTextFixture);
         assertEquals(expected, actual);
     }
 
     @Test
     public void testDefaultFunctionalityYaml() throws IOException {
-        String actual = Differ.generate(pathToFirstYAMLFixture,pathToSecondYAMLFixture);
+        String actual = Differ.generate(pathToFirstYAMLFixture, pathToSecondYAMLFixture, "default");
         String expected = readFileAsString(pathToResultTextFixture);
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
     @Test
     public void testNestedFunctionalityJson() throws IOException {
-        String actual = Differ.generate(pathToFirstNestedJsonFixture,pathToSecondNestedJsonFixture);
+        String actual = Differ.generate(pathToFirstNestedJsonFixture, pathToSecondNestedJsonFixture, "stylish");
         String expected = readFileAsString(pathToResultTextForNestedFixtures);
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
-
-
-
+    @Test
+    public void testPlainFunctionality() throws IOException {
+        String actual = Differ.generate(pathToFirstNestedJsonFixture, pathToSecondNestedJsonFixture, "plain");
+        String expected = readFileAsString(pathToResultTextForPlainFormat);
+        assertEquals(expected, actual);
+    }
+    @Test
+    public void testJsonFunctionality() throws IOException {
+        String actual = Differ.generate(pathToFirstNestedJsonFixture, pathToSecondNestedJsonFixture, "json");
+        String expected = readFileAsString(patToResultForJsonFormat);
+        assertEquals(expected, actual);
+    }
 
 }
