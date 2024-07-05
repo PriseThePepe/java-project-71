@@ -13,12 +13,15 @@ public class DifferTest {
     private static String pathToFirstJsonFixture;
     private static String pathToSecondJsonFixture;
 
+    private static String pathToFirstYAMLFixture;
+    private static String pathToSecondYAMLFixture;
+
     private static String pathToFirstNestedJsonFixture;
     private static String pathToSecondNestedJsonFixture;
 
+    private static String pathToFirstNestedYAMLFixture;
+    private static String pathToSecondNestedYAMLFixture;
 
-    private static String pathToFirstYAMLFixture;
-    private static String pathToSecondYAMLFixture;
 
     private static String pathToResultTextFixture;
     private static String pathToResultTextForNestedFixtures;
@@ -30,11 +33,16 @@ public class DifferTest {
         pathToFirstJsonFixture = "src/test/resources/fixtures/Json's/TestFile1.json";
         pathToSecondJsonFixture = "src/test/resources/fixtures/Json's/TestFile2.json";
 
+        pathToFirstYAMLFixture = "src/test/resources/fixtures/Yaml's/TestFile1.yml";
+        pathToSecondYAMLFixture = "src/test/resources/fixtures/Yaml's/TestFile2.yml";
+
         pathToFirstNestedJsonFixture = "src/test/resources/fixtures/Json's/NestedTestFile1.json";
         pathToSecondNestedJsonFixture = "src/test/resources/fixtures/Json's/NestedTestFile2.json";
 
-        pathToFirstYAMLFixture = "src/test/resources/fixtures/Yaml's/TestFile1.yml";
-        pathToSecondYAMLFixture = "src/test/resources/fixtures/Yaml's/TestFile2.yml";
+        pathToFirstNestedYAMLFixture = "src/test/resources/fixtures/Yaml's/NestedTestFile1.yml";
+        pathToSecondNestedYAMLFixture = "src/test/resources/fixtures/Yaml's/NestedTestFile2.yml";
+
+
 
         pathToResultTextFixture = "src/test/resources/fixtures/ResultTest.txt";
         pathToResultTextForNestedFixtures = "src/test/resources/fixtures/ResultForNestedFiles.txt";
@@ -70,6 +78,12 @@ public class DifferTest {
         String actual = Differ.generate(pathToFirstNestedJsonFixture, pathToSecondNestedJsonFixture, "stylish");
         String expected = readFileAsString(pathToResultTextForNestedFixtures);
         assertEquals(expected, actual);
+    }
+    @Test
+    public void testNestedFunctionalityYAML() throws IOException {
+        String actual = Differ.generate(pathToFirstNestedYAMLFixture, pathToSecondNestedYAMLFixture, "stylish");
+        String expected = readFileAsString(pathToResultTextForNestedFixtures);
+        assertEquals(expected,actual);
     }
     @Test
     public void testPlainFunctionality() throws IOException {

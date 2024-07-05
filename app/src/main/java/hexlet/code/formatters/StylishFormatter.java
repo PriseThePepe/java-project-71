@@ -46,7 +46,7 @@ public class StylishFormatter {
             }
         }
         builder.append("}").append(System.lineSeparator());
-        return builder.toString();
+        return builder.toString().trim();
 
     }
 }
