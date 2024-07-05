@@ -61,7 +61,7 @@ public class DifferTest {
 
     @Test
     public void testDefaultFunctionalityYaml() throws IOException {
-        String actual = Differ.generate(pathToFirstYAMLFixture, pathToSecondYAMLFixture,"default");
+        String actual = Differ.generate(pathToFirstYAMLFixture, pathToSecondYAMLFixture, "default");
         String expected = readFileAsString(pathToResultTextFixture);
         assertEquals(expected, actual);
     }
