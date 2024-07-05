@@ -83,7 +83,7 @@ public class DifferTest {
     public void testNestedFunctionalityYAML() throws IOException {
         String actual = Differ.generate(pathToFirstNestedYAMLFixture, pathToSecondNestedYAMLFixture, "stylish");
         String expected = readFileAsString(pathToResultTextForNestedFixtures);
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
     @Test
     public void testPlainFunctionality() throws IOException {
