@@ -1,50 +1,33 @@
-package hexlet.code.DifferGenerator;
+package hexlet.code;
 
+import java.util.TreeSet;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Objects;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import java.util.Map;
-import java.util.LinkedHashMap;
-
 public class DifferGenerator {
-    public static Map<String, Map<String, Object>> getDiff(Map<String, Object> fileMap1, Map<String, Object> fileMap2) {
+    public static Map<String, Status> getDiff(Map<String, Object> fileMap1, Map<String, Object> fileMap2) {
 
-        Map<String, Map<String, Object>> diffMap = new LinkedHashMap<>();
+        Map<String, Status> diffMap = new LinkedHashMap<>();
 
-        List<String> sortedList = new ArrayList<>(fileMap1.keySet());
-        sortedList.addAll(fileMap2.keySet());
+        TreeSet<String> treeSet = new TreeSet<>(fileMap1.keySet());
+        treeSet.addAll(fileMap2.keySet());
 
-        sortedList = sortedList.stream()
-                .distinct()
-                .sorted()
-                .toList();
-
-        for (String key : sortedList) {
+        for (String key : treeSet) {
             var value1 = fileMap1.get(key);
             var value2 = fileMap2.get(key);
 
-            Map<String, Object> diffMapEntry = new LinkedHashMap<>();
-
-            diffMapEntry.put("key", key);
-            if (fileMap1.containsKey(key) && fileMap2.containsKey(key)) {
-                if (!Objects.equals(value1, value2)) {
-                    diffMapEntry.put("old value", value1);
-                    diffMapEntry.put("new value", value2);
-                    diffMapEntry.put("status", "updated");
-                } else {
-                    diffMapEntry.put("old value", value1);
-                    diffMapEntry.put("status", "unchanged");
-                }
-            } else if (fileMap1.containsKey(key)) {
-                diffMapEntry.put("old value", value1);
-                diffMapEntry.put("status", "removed");
-            } else {
-                diffMapEntry.put("new value", value2);
-                diffMapEntry.put("status", "added");
+            Status status = null;
+            if (!fileMap1.containsKey(key)) {
+                status = new Status(Status.ADDED, key, null, value2);
+            } else if (!fileMap2.containsKey(key)) {
+                status = new Status(Status.REMOVED, key, value1, null);
+            } else if (Objects.equals(fileMap1.get(key), fileMap2.get(key))) {
+                status = new Status(Status.UNCHANGED, key, value1, null);
+            } else if (!Objects.equals(fileMap1.get(key), fileMap2.get(key))) {
+                status = new Status(Status.UPDATED, key, value1, value2);
             }
-            diffMap.put(key, diffMapEntry);
+            diffMap.put(key, status);
         }
         return diffMap;
     }

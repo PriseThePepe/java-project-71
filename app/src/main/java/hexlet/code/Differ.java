@@ -1,10 +1,10 @@
 package hexlet.code;
 
-import hexlet.code.DifferGenerator.DifferGenerator;
 import hexlet.code.Parser.Parser;
 
 import java.io.IOException;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -15,28 +15,31 @@ public class Differ {
         Path firstPath = Paths.get(firstFilepath).toAbsolutePath();
         Path secondPath = Paths.get(secondFilepath).toAbsolutePath();
 
-        String result;
-        Map<String, Object> parsedFirstFile =  Parser.parse(String.valueOf(firstPath));
-        Map<String, Object> parsedSecondFile = Parser.parse(String.valueOf(secondPath));
+        String firstContent = Files.readString(firstPath);
+        String secondContent = Files.readString(secondPath);
 
-        Map<String, Map<String, Object>> diffMap = DifferGenerator.getDiff(parsedFirstFile, parsedSecondFile);
+        String firstFileExtension = getFileExtension(firstFilepath);
+        String secondFileExtension = getFileExtension(secondFilepath);
 
-        result = Formatter.format(diffMap, format);
 
-        return result;
+        Map<String, Object> parsedFirstFile =  Parser.parse(firstContent, firstFileExtension);
+        Map<String, Object> parsedSecondFile = Parser.parse(secondContent, secondFileExtension);
+
+        Map<String, Status> diffMap = DifferGenerator.getDiff(parsedFirstFile, parsedSecondFile);
+
+
+        return Formatter.format(diffMap, format);
     }
     public static String generate(String firstFilepath, String secondFilepath) throws IOException {
-        Path firstPath = Paths.get(firstFilepath).toAbsolutePath();
-        Path secondPath = Paths.get(secondFilepath).toAbsolutePath();
+        return generate(firstFilepath, secondFilepath, "stylish");
+    }
 
-        String result;
-        Map<String, Object> parsedFirstFile =  Parser.parse(String.valueOf(firstPath));
-        Map<String, Object> parsedSecondFile = Parser.parse(String.valueOf(secondPath));
-
-        Map<String, Map<String, Object>> diffMap = DifferGenerator.getDiff(parsedFirstFile, parsedSecondFile);
-
-        result = Formatter.format(diffMap, "stylish");
-
-        return result;
+    private static String getFileExtension(String filepath) {
+        if (filepath.endsWith(".json")) {
+            return "json";
+        } else if (filepath.endsWith(".yml") || filepath.endsWith(".yaml")) {
+            return "yml";
+        }
+        return "unknown";
     }
 }
