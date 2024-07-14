@@ -1,43 +1,45 @@
 package hexlet.code.formatters;
 
+import hexlet.code.Status;
+
 import java.util.List;
 import java.util.Map;
 
 public class PlainFormatter {
-    public static String plainFormat(Map<String, Map<String, Object>> diffMap) {
+    public static String plainFormat(Map<String, Status> diffMap) {
         StringBuilder builder = new StringBuilder();
 
-        for (Map<String, Object> diff : diffMap.values()) {
-            String status = (String) diff.get("status");
+        for (Status status : diffMap.values()) {
 
-            switch (status) {
-                case "removed" ->
+            switch (status.getStatusName()) {
+                case Status.REMOVED ->
                         builder.append("Property ").
                                 append("'").
-                                append(diff.get("key")).
+                                append(status.getKey()).
                                 append("'").
                                 append(" was removed").
                                 append(System.lineSeparator());
-                case "added" ->
+                case Status.ADDED ->
                         builder.append("Property ").
                                 append("'").
-                                append(diff.get("key")).
+                                append(status.getKey()).
                                 append("'").
                                 append(" was added with value: ").
-                                append(formatValue(diff.get("new value"))).
+                                append(formatValue(status.getNewValue())).
                                 append(System.lineSeparator());
-                case "unchanged" -> {
+                case Status.UNCHANGED -> {
                 }
-                default -> builder.append("Property ").
+                case Status.UPDATED -> builder.append("Property ").
                         append("'").
-                        append(diff.get("key")).
+                        append(status.getKey()).
                         append("'").
                         append(" was updated.").
                         append(" From ").
-                        append(formatValue(diff.get("old value"))).
+                        append(formatValue(status.getOldValue())).
                         append(" to ").
-                        append(formatValue(diff.get("new value"))).
+                        append(formatValue(status.getNewValue())).
                         append(System.lineSeparator());
+                default -> throw new RuntimeException("Unknown status: +" + status);
             }
         }
 

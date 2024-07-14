@@ -1,46 +1,47 @@
 package hexlet.code.formatters;
 
+import hexlet.code.Status;
+
 import java.util.Map;
 
 public class StylishFormatter {
-    public static String stylishFormat(Map<String, Map<String, Object>> diffMap) {
+    public static String stylishFormat(Map<String, Status> diffMap) {
         StringBuilder builder = new StringBuilder();
 
         builder.append("{").append(System.lineSeparator());
 
-        for (Map<String, Object> diff : diffMap.values()) {
-            String status = (String) diff.get("status");
+        for (Status status : diffMap.values()) {
 
-            switch (status) {
-                case "removed" ->
+            switch (status.getStatusName()) {
+                case Status.REMOVED ->
                         builder.append("  - ").
-                                append(diff.get("key")).
+                                append(status.getKey()).
                                 append(": ").
-                                append(diff.get("old value")).
+                                append(status.getOldValue()).
                                 append(System.lineSeparator());
-                case "added" ->
+                case Status.ADDED ->
                         builder.append("  + ").
-                                append(diff.get("key")).
+                                append(status.getKey()).
                                 append(": ").
-                                append(diff.get("new value")).
+                                append(status.getNewValue()).
                                 append(System.lineSeparator());
-                case "unchanged" ->
+                case Status.UNCHANGED ->
                         builder.append("    ").
-                                append(diff.get("key")).
+                                append(status.getKey()).
                                 append(": ").
-                                append(diff.get("old value")).
+                                append(status.getOldValue()).
                                 append(System.lineSeparator());
                 default -> {
                     builder.append("  - ").
-                            append(diff.get("key")).
+                            append(status.getKey()).
                             append(": ").
-                            append(diff.get("old value")).
+                            append(status.getOldValue()).
                             append(System.lineSeparator());
 
                     builder.append("  + ").
-                            append(diff.get("key")).
+                            append(status.getKey()).
                             append(": ").
-                        append(diff.get("new value")).
+                        append(status.getNewValue()).
                         append(System.lineSeparator());
                 }
             }
