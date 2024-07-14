@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DifferTest {
+public final class DifferTest {
     private static final String JSON_FILE_1 = "src/test/resources/fixtures/Json's/TestFile1.json";
     private static final String JSON_FILE_2 = "src/test/resources/fixtures/Json's/TestFile2.json";
 

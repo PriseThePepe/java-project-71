@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 import java.io.IOException;
 
-public class StatusSerializer extends StdSerializer<Status> {
+public final class StatusSerializer extends StdSerializer<Status> {
 
     public StatusSerializer() {
         this(null);
