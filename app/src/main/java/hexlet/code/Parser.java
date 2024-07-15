@@ -1,4 +1,4 @@
-package hexlet.code.Parser;
+package hexlet.code;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,7 +11,7 @@ import java.util.Map;
 public class Parser {
     public static Map<String, Object> parse(String content, String mapperType) throws IOException {
 
-        Map<String, Object> parsedMap = null;
+        Map<String, Object> parsedMap;
         switch (mapperType){
             case "json": {
                 ObjectMapper objectMapper = new JsonMapper();
