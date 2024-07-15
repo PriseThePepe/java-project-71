@@ -1,7 +1,5 @@
 package hexlet.code;
 
-import hexlet.code.Parser.Parser;
-
 import java.io.IOException;
 
 import java.nio.file.Files;
@@ -35,11 +33,8 @@ public class Differ {
     }
 
     private static String getFileExtension(String filepath) {
-        if (filepath.endsWith(".json")) {
-            return "json";
-        } else if (filepath.endsWith(".yml") || filepath.endsWith(".yaml")) {
-            return "yml";
-        }
-        return "unknown";
+        int index = filepath.lastIndexOf('.');
+       return index > 0
+               ? filepath.substring(index + 1): "";
     }
 }
