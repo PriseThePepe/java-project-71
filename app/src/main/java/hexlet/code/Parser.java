@@ -11,26 +11,20 @@ import java.util.Map;
 public class Parser {
     public static Map<String, Object> parse(String content, String mapperType) throws IOException {
 
-        Map<String, Object> parsedMap;
-        switch (mapperType){
-            case "json": {
+        return switch (mapperType) {
+            case "json" -> {
                 ObjectMapper objectMapper = new JsonMapper();
 
-                parsedMap = objectMapper.readValue(content, new TypeReference<Map<String, Object>>() {
+                yield objectMapper.readValue(content, new TypeReference<Map<String, Object>>() {
                 });
-                break;
             }
-            case "yml", "yaml":{
+            case "yml", "yaml" -> {
                 ObjectMapper yamlMapper = new YAMLMapper();
 
-                parsedMap = yamlMapper.readValue(content, new TypeReference<Map<String, Object>>() {
+                yield yamlMapper.readValue(content, new TypeReference<Map<String, Object>>() {
                 });
-                break;
             }
-            default: throw new IOException("Unknown mapper " + mapperType);
-        }
-        return parsedMap;
+            default -> throw new IOException("Unknown mapper " + mapperType);
+        };
     }
-
 }
-
