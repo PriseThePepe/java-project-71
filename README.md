@@ -1,3 +1,51 @@
+# Difference Calculator
+
+## Overview
+This program compares two configuration files in JSON or YML format. The diff is based on how the files have changed relative to each other, with keys displayed in alphabetical order. The result of the file comparison can be output in different formats.
+
+## Table of Contents
+- [How it works](#asciinema-video)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Requirements](#requirements)
+- [Testing](#testing)
+
+
+## Installation
+1. Clone the repository:
+   git clone https://github.com/PriseThePepe/java-project-71.git
+2. Navigate to the project directory:
+   cd java-project-71
+3. Build the project using Gradle:
+   ./gradlew build or make build
+
+## Usage
+To compare two files, use the following command:
+
+./build/install/app/bin/app [-f] filepath1.json filepath2.json
+Where:
+-f, -- format - Output format that you need.
+filepath1.json, filepath2.json - Two JSON or YAML files that need to compare.
+
+To show help massage, use following command:
+./build/install/app/bin/app -h or --help
+
+## Features
+- Compare JSON and YML files
+- Display differences in various formats (stylish, plain, JSON)
+- Keys are displayed in alphabetical order
+
+## Requirements
+- Java 21 or higher
+- Gradle 8.5 or higher
+
+## Testing
+To run tests, use the following command:
+./gradlew test or make test
+
+
+
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/PriseThePepe/java-project-71/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/PriseThePepe/java-project-71/actions)
 
