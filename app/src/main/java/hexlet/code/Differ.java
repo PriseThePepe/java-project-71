@@ -34,7 +34,7 @@ public class Differ {
 
     private static String getFileExtension(String filepath) {
         int index = filepath.lastIndexOf('.');
-       return index > 0
-               ? filepath.substring(index + 1): "";
+        return index > 0
+               ? filepath.substring(index + 1) : "";
     }
 }
