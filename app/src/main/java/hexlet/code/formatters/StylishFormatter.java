@@ -31,7 +31,7 @@ public class StylishFormatter {
                                 append(": ").
                                 append(status.getOldValue()).
                                 append(System.lineSeparator());
-                default -> {
+                case Status.UPDATED -> {
                     builder.append("  - ").
                             append(status.getKey()).
                             append(": ").
@@ -43,6 +43,9 @@ public class StylishFormatter {
                             append(": ").
                         append(status.getNewValue()).
                         append(System.lineSeparator());
+                }
+                default -> {
+                    throw new RuntimeException("Wrong status for formatter " + status.getStatusName());
                 }
             }
         }
