@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -31,20 +31,14 @@ public final class DifferTest {
     private static final String RESULT_NESTED_FILE_JSON = "src/test/resources/fixtures/ResultForJsonFormat.json";
 
 
-    public static String readFileAsString(String path) {
-        try {
-            return Files.readString(Paths.get(path));
-        } catch (IOException e) {
-            throw new RuntimeException();
-        }
-    }
+
 
     @ParameterizedTest
     @MethodSource("provideTestArguments")
     public void testDiffer(String outputFormat, String firstFilePath, String secondFilePath,
                            String expectedResultPath) throws IOException {
         String actual = Differ.generate(firstFilePath, secondFilePath, outputFormat);
-        String expected = readFileAsString(expectedResultPath);
+        String expected = Files.readString(Path.of(expectedResultPath));
         assertEquals(expected, actual);
     }
 
